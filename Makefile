@@ -8,6 +8,7 @@ APPLICATIONSDIR = ${PREFIX}/share/applications
 AUTOSTARTDIR = ${SYSCONFDIR}/xdg/autostart
 
 CC = gcc
+CFLAGS = -g
 
 .PHONY: all clean install uninstall
 
@@ -15,7 +16,7 @@ all: \
 	xdg-open-server
 
 xdg-open-server: main.c
-	$(CC) $(CFLAGS) -lX11 -lpthread $(LDFLAGS) $< -o $@
+	LIBRARY_PATH+=:/usr/X11/lib $(CC) $(CFLAGS) -I/usr/X11/include -lX11 -lpthread $(LDFLAGS) $< -o $@
 
 clean:
 	@rm -rfv xdg-open-server
